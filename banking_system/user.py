@@ -1,6 +1,9 @@
 import random
 
 class User():
+
+    used_cd_numbers = set()
+
     def __init__ (self, name, cd_number, pin, balance):
         self.name = name
         self.__cd_number = cd_number
@@ -35,16 +38,19 @@ class User():
                 print(f"Incorrect PIN. Please try again ({chances} chances left).")
 
     def create_cd_number(self):
-        cd_number = str(random.randint(1000, 9999))
-        self.__cd_number = cd_number
+        while True:
+            cd_number = str(random.randint(1000, 9999))
+            if cd_number not in User.used_cd_numbers:
+                User.used_cd_numbers.add(cd_number)
+                self.__cd_number = cd_number
+                print(f"Generated unique CD Number: {self.__cd_number}")
+                break
 
     @property
     def get_balance(self):
         return self.__balance
     
 
-
-user_1 = User("satyam",1,992005,20000)
 
 
 
