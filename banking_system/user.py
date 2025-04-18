@@ -1,16 +1,15 @@
 import random
 
-class User():
-
+class User:
     used_cd_numbers = set()
 
-    def __init__ (self, name, cd_number, pin, balance):
+    def __init__(self, name, cd_number, pin, balance):
         self.name = name
         self.__cd_number = cd_number
         self.__pin = pin
         self.__balance = balance
 
-    def widrawl_amount(self):
+    def withdraw_amount(self):
         amount = int(input("Enter the amount you want to withdraw: "))
         if amount > self.__balance:
             print("Insufficient balance")
@@ -31,11 +30,13 @@ class User():
                 new_pin = int(input("Enter your new pin: "))
                 self.__pin = new_pin
                 print(f"Your new pin is {self.__pin}")
-            elif chances == 0:
-                print("You have exceeded the maximum number of attempts.")
+                break
             else:
                 chances -= 1
-                print(f"Incorrect PIN. Please try again ({chances} chances left).")
+                if chances > 0:
+                    print(f"Incorrect PIN. Please try again ({chances} chances left).")
+                else:
+                    print("You have exceeded the maximum number of attempts.")
 
     def create_cd_number(self):
         while True:
@@ -49,8 +50,15 @@ class User():
     @property
     def get_balance(self):
         return self.__balance
-    
 
+    @property
+    def cd_number(self):
+        return self.__cd_number
 
+    @property
+    def pin(self):
+        return self.__pin
 
-
+    @property
+    def balance(self):
+        return self.__balance
