@@ -1,6 +1,6 @@
 import random
 
-class User():
+class User: #CHANGE:removed (object) as it is not needed without inheritance
 
     used_cd_numbers = set()
 
@@ -25,18 +25,21 @@ class User():
 
     def change_pin(self):
         chances = 3
-        while chances > 0:
+        while chances != 0: #CHANGE: while chances > 0 to while chances != 0 to avoid infinite loop
             verify = int(input("Enter your current PIN: "))
             if verify == self.__pin:
                 new_pin = int(input("Enter your new pin: "))
                 self.__pin = new_pin
                 print(f"Your new pin is {self.__pin}")
-            elif chances == 0:
-                print("You have exceeded the maximum number of attempts.")
-            else:
+                break
+            # elif chances == 0:
+            #     print("You have exceeded the maximum number of attempts.") #CHANGE: commented out this will never be reached
+            elif verify != self.__pin:
                 chances -= 1
                 print(f"Incorrect PIN. Please try again ({chances} chances left).")
-
+            else:     
+                print("You have exceeded the maximum number of attempts.") #CHANGE: gets printed if the user enters wrong pin 3 times
+        
     def create_cd_number(self):
         while True:
             cd_number = str(random.randint(1000, 9999))
@@ -50,7 +53,3 @@ class User():
     def get_balance(self):
         return self.__balance
     
-
-
-
-

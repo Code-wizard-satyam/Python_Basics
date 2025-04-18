@@ -1,7 +1,7 @@
 import csv
 from user import User
 
-class Bank():
+class Bank: #CHANGE: removed (object) as it is not needed without inheritance
 
     def __init__(self, filename = "bank_data.csv"):
         self.users = []
@@ -19,9 +19,9 @@ class Bank():
         print(f"User {name} added sucessfully.")
 
     def save_to_csv(self, user):
-        with open(self.filename, mode='a', newline='') as file:
+        with open(self.filename, mode='a', newline='') as file:  
             writer = csv.writer(file)
-            writer.writerow([user.name, user._User__cd_number, user._User__pin, user.get_balance])
+            writer.writerow([user.name, user._User__cd_number, user._User__pin, user.get_balance]) 
     
     def get_user_data(self):
         with open(self.filename, mode='r') as file:
@@ -33,9 +33,9 @@ class Bank():
     def check_login(self, name , cd_number, pin):
         self.get_user_data()
 
-        for user in self.users():
-            if user._User__cd_number == cd_number and user.User_pin == int(pin):
-                print(f"Login Sucessfull. Thanks {name} for login.")
+        for user in self.users: #CHANGE:using self.users with () will call te function instead iterating over it , hence removed()
+            
+            if user._User__cd_number == cd_number and user._User__pin == int(pin): #CHANGE: missing double (_) in .User_pin
                 return user
         print("Invalid name or PIN")
         return None
